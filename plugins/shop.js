@@ -489,33 +489,7 @@ Contoh penggunaan: *${usedPrefix + command} buy potion 1*
                 default:
                     return conn.reply(m.chat, Kchat, m)
                 }
-            } else if (/upgrade/i.test(command)) {
-            const count = args[1] && args[1].length > 0 ? Math.min(99999999, Math.max(parseInt(args[1]), 1)) : !args[1] || args.length < 3 ? 1 : Math.min(1, count)
-            switch (type) {
-            	case 'fishingrod':
-                        if (global.db.data.users[m.sender].fishingroddurability > 5000) {
-                        if (global.db.data.users[m.sender].money > Ufishing * 1) {
-                            global.db.data.users[m.sender].fishingroddurability += 500
-                            global.db.data.users[m.sender].money -= Ufishing * 1
-                            conn.reply(m.chat, `Succes menambah durability pickaxe seharga ${Ufishing} money` ,m)
-                          
-                        } else conn.reply(m.chat, `uang mu tidak cukup untuk menambah durability pickaxe seharga ${Ufishing} money`, m)
-                        } else conn.reply(m.chat, 'Fishing rodmu sudah *Sangat Kuat*', m)
-                        break
-               	case 'pickaxe':
-                        if (global.db.data.users[m.sender].pickaxedurability > 5000) {
-                        if (global.db.data.users[m.sender].money > Upickaxe * 1) {
-                            global.db.data.users[m.sender].pickaxedurability += 500
-                            global.db.data.users[m.sender].money -= Upickaxe * 1
-                            conn.reply(m.chat, `Succes menambah durability pickaxe seharga ${Upickaxe} money` ,m)
-                          
-                        } else conn.reply(m.chat, `uang mu tidak cukup untuk menambah durability pickaxe seharga ${Upickaxe} money`, m)
-                        } else conn.reply(m.chat, 'Pickaxemu sudah *Sangat Kuat*', m)
-                        break 
-                        default:
-                        return conn.reply(m.chat, Kchat, m)
-            }
-          }
+            } 
         }catch (e) {
         conn.reply(m.chat, Kchat, m)
         console.log(e)
