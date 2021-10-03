@@ -1,5 +1,8 @@
 # Mike-bot
-Bikin public bot😳
+Rpg WhatsApp Bot Mike-bot
+
+
+Deploy to heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Dawnfrosty/Mike-bot)
 
@@ -16,3 +19,12 @@ cd Mike-bot
 npm install
 npm update
 ```
+---------
+
+## Run
+
+```bash
+node .
+```
+
+---------
