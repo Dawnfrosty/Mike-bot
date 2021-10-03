@@ -1,38 +1,39 @@
 let levelling = require('../lib/levelling')
 let handler = async (m, { conn, usedPrefix }) => {
 	if (!db.data.chats[m.chat].rpg && m.isGroup) throw global.rpg
-    let healt = global.db.data.users[m.sender].healt
-    let armor = global.db.data.users[m.sender].armor 
-    let pickaxe = global.db.data.users[m.sender].pickaxe
-    let pdurability = global.db.data.users[m.sender].pickaxedurability
-    let fishingrod = global.db.data.users[m.sender].fishingrod
-    let fdurability = global.db.data.users[m.sender].fishingroddurability
-    let warn = global.db.data.users[m.sender].warn
-    let title = global.db.data.users[m.sender].title
-    let role = global.db.data.users[m.sender].role
-    let pet = global.db.data.users[m.sender].pet
-    let limit = global.db.data.users[m.sender].limit
-    let kucing = global.db.data.users[m.sender].kucing
-    let _kucing = global.db.data.users[m.sender].anakkucing
-    let rubah = global.db.data.users[m.sender].rubah
-    let _rubah = global.db.data.users[m.sender].anakrubah
-    let kuda = global.db.data.users[m.sender].kuda
-    let _kuda = global.db.data.users[m.sender].anakkuda
-    let diamond = global.db.data.users[m.sender].diamond
-    let batu = global.db.data.users[m.sender].batu
-    let iron = global.db.data.users[m.sender].iron
-    let potion = global.db.data.users[m.sender].potion
-    let common = global.db.data.users[m.sender].common
-    let makananpet = global.db.data.users[m.sender].makananpet
-    let uncommon = global.db.data.users[m.sender].uncommon
-    let mythic = global.db.data.users[m.sender].mythic
-    let legendary = global.db.data.users[m.sender].legendary
-    let level = global.db.data.users[m.sender].level
-    let money = global.db.data.users[m.sender].money
-    let exp = global.db.data.users[m.sender].exp
-    let sampah = global.db.data.users[m.sender].sampah
+	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+    let healt = global.db.data.users[who].healt
+    let armor = global.db.data.users[who].armor 
+    let pickaxe = global.db.data.users[who].pickaxe
+    let pdurability = global.db.data.users[who].pickaxedurability
+    let fishingrod = global.db.data.users[who].fishingrod
+    let fdurability = global.db.data.users[who].fishingroddurability
+    let warn = global.db.data.users[who].warn
+    let title = global.db.data.users[who].title
+    let role = global.db.data.users[who].role
+    let pet = global.db.data.users[who].pet
+    let limit = global.db.data.users[who].limit
+    let kucing = global.db.data.users[who].kucing
+    let _kucing = global.db.data.users[who].anakkucing
+    let rubah = global.db.data.users[who].rubah
+    let _rubah = global.db.data.users[who].anakrubah
+    let kuda = global.db.data.users[who].kuda
+    let _kuda = global.db.data.users[who].anakkuda
+    let diamond = global.db.data.users[who].diamond
+    let batu = global.db.data.users[who].batu
+    let iron = global.db.data.users[who].iron
+    let potion = global.db.data.users[who].potion
+    let common = global.db.data.users[who].common
+    let makananpet = global.db.data.users[who].makananpet
+    let uncommon = global.db.data.users[who].uncommon
+    let mythic = global.db.data.users[who].mythic
+    let legendary = global.db.data.users[who].legendary
+    let level = global.db.data.users[who].level
+    let money = global.db.data.users[who].money
+    let exp = global.db.data.users[who].exp
+    let sampah = global.db.data.users[who].sampah
     let { max } = levelling.xpRange(level, exp, global.multiplier)
-    let name = m.fromMe ? conn.user : conn.contacts[m.sender]
+    let name = m.fromMe ? conn.user : conn.contacts[who]
     let sortedmoney = Object.entries(global.DATABASE.data.users).sort((a, b) => b[1].money - a[1].money)
     let sortedlevel = Object.entries(global.DATABASE.data.users).sort((a, b) => b[1].level - a[1].level)
     let sorteddiamond = Object.entries(global.DATABASE.data.users).sort((a, b) => b[1].diamond - a[1].diamond)
@@ -53,7 +54,8 @@ let handler = async (m, { conn, usedPrefix }) => {
     let userslegendary = sortedlegendary.map(v => v[0])
     let str = `
 Inventory *${name.vnmae || name.notify || name.name || ('+' + name.jid.split`@`[0])}*
-🏷️Title: *${title}*\n
+${readMore}
+🏷️Title: *${title ? '' : 'Tidak ada'}*\n
 ❤️Health: *${healt}*
 💳Role: *${role}*
 🥋Armor: *${armor == 0 ? 'Tidak Punya' : '' || armor == 1 ? 'Leather Armor' : '' || armor == 2 ? 'Iron Armor' : '' || armor == 3 ? 'Gold Armor' : '' || armor == 4 ? 'Diamond Armor' : '' || armor == 5 ? 'Netherite Armor' : ''}*\n
@@ -98,15 +100,16 @@ Total inv: *${diamond + potion + sampah + makananpet}* item\n
 │Kuda🐎 ${kuda == 0 ? 'Tidak Punya' : '' || kuda > 0 && kuda < 5 ? `Level *${kuda}* To level *${kuda + 1}*\n│Exp *${_kuda}* -> *${kuda *100}*` : '' || kuda == 5 ? '*Max Level*' : ''}
 ╰────────────────\n\n
 *achievement*
-1.Top level *${userslevel.indexOf(m.sender) + 1}* dari *${userslevel.length}*
-2.Top Money *${usersmoney.indexOf(m.sender) + 1}* dari *${usersmoney.length}*
-3.Top Diamond *${usersdiamond.indexOf(m.sender) + 1}* dari *${usersdiamond.length}*
-4.Top Potion *${userspotion.indexOf(m.sender) + 1}* dari *${userspotion.length}*
-5.Top Common *${userscommon.indexOf(m.sender) + 1}* dari *${userscommon.length}*
-6.Top Uncommon *${usersuncommon.indexOf(m.sender) + 1}* dari *${usersuncommon.length}*
-7.Top Mythic *${usersmythic.indexOf(m.sender) + 1}* dari *${usersmythic.length}*
-8.Top Legendary *${userslegendary.indexOf(m.sender) + 1}* dari *${userslegendary.length}*
-9.Top Sampah *${userssampah.indexOf(m.sender) + 1}* dari *${userssampah.length}*
+${readMore}
+1.Top level *${userslevel.indexOf(who) + 1}* dari *${userslevel.length}*
+2.Top Money *${usersmoney.indexOf(who) + 1}* dari *${usersmoney.length}*
+3.Top Diamond *${usersdiamond.indexOf(who) + 1}* dari *${usersdiamond.length}*
+4.Top Potion *${userspotion.indexOf(who) + 1}* dari *${userspotion.length}*
+5.Top Common *${userscommon.indexOf(who) + 1}* dari *${userscommon.length}*
+6.Top Uncommon *${usersuncommon.indexOf(who) + 1}* dari *${usersuncommon.length}*
+7.Top Mythic *${usersmythic.indexOf(who) + 1}* dari *${usersmythic.length}*
+8.Top Legendary *${userslegendary.indexOf(who) + 1}* dari *${userslegendary.length}*
+9.Top Sampah *${userssampah.indexOf(who) + 1}* dari *${userssampah.length}*
 \n${readMore}\n
 Warn: *${warn}*
 Banned: *No*
