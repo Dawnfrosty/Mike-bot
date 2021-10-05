@@ -48,7 +48,7 @@ npm update
 
 ```bash
 git clone https://github.com/Dawnfrosty/Mike-bot
-cd games-wabot
+cd Mike-bot
 npm install
 npm update
 ```
