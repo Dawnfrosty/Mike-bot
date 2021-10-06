@@ -10,7 +10,7 @@ let handler = async (m, { conn, args }) => {
     if ((user.warn * 1) < count * 1) throw `User hanya memiliki *${user.warn * 1}* WARN!!`
     user.warn -= count * 1
     m.reply('Berhasil Unwarn user!!')
-    m.reply('Kamu telah di Unwarn OWNER Atau MODERATOR, sekarang kamu memiliki *' + (global.db.data.users[mention].warn * 1) + '* WARN', mention)
+    m.reply('Kamu telah di Unwarn OWNER Atau MODERATOR, sekarang kamu memiliki *' + (global.DATABASE._data.users[mention].warn * 1) + '* WARN', mention)
 }
 
 handler.help = ['unwarn @mention']

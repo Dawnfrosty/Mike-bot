@@ -1,11 +1,9 @@
 let fetch = require('node-fetch')
-let axios = require('axios')
 let handler = async(m, { conn, text }) => {
 
-    if (!text) return conn.reply(m.chat, 'Harap Masukan Nama Film Animenya', m)
-
-	let res = await fetch(`https://api.lolhuman.xyz/api/lk21?apikey=Dawnfrostkey&query=${text}`)
-	 json = await res.json()
+    if (!text) return conn.reply(m.chat, 'Harap Masukan Nama Film nya', m)
+	let json = await (await fetch(`https://api.lolhuman.xyz/api/lk21?apikey=Dawnfrostkey&query=${text}`)).json()
+	if (!json) throw json
   let {
     title,
     genre,

@@ -219,22 +219,21 @@ Contoh penggunaan: *${usedPrefix + command} buy potion 1*
                 break
             case 'upgrade':
                switch (_type) {
-               	case 'fishingrod':
-                        if (global.db.data.users[m.sender].fishingroddurability > 5000) return onn.reply(m.chat, 'Fishing rodmu sudah *Sangat Kuat*', m)
-                        if (global.db.data.users[m.sender].money > Ufishing * 1) {
-                            global.db.data.users[m.sender].fishingroddurability += 500
-                            global.db.data.users[m.sender].money -= Ufishing * 1
-                            conn.reply(m.chat, `Succes menambah durability pickaxe seharga ${Ufishing} money` ,m)
-                        } else conn.reply(m.chat, `uang mu tidak cukup untuk menambah durability pickaxe seharga ${Ufishing} money`, m)
-                        break
                	case 'pickaxe':
                         if (global.db.data.users[m.sender].pickaxedurability > 5000) return conn.reply(m.chat, 'Pickaxemu sudah *Sangat Kuat*', m)
                         if (global.db.data.users[m.sender].money > Upickaxe * 1) {
                             global.db.data.users[m.sender].pickaxedurability += 500
                             global.db.data.users[m.sender].money -= Upickaxe * 1
                             conn.reply(m.chat, `Succes menambah durability pickaxe seharga ${Upickaxe} money` ,m)
-                          
                         } else conn.reply(m.chat, `uang mu tidak cukup untuk menambah durability pickaxe seharga ${Upickaxe} money`, m)
+                        break
+                   case 'fishingrod':
+                        if (global.db.data.users[m.sender].fishingroddurability > 5000) return conn.reply(m.chat, 'Fishing rodmu sudah *Sangat Kuat*', m)
+                        if (global.db.data.users[m.sender].money > Ufishing * 1) {
+                            global.db.data.users[m.sender].fishingroddurability += 500
+                            global.db.data.users[m.sender].money -= Ufishing * 1
+                            m.reply(m.chat, `Succes menambah durability pickaxe seharga ${Ufishing} money` ,m)
+                        } else m.reply(m.chat, `uang mu tidak cukup untuk menambah durability pickaxe seharga ${Ufishing} money`, m)
                         break
                      default:
                         return conn.reply(m.chat, Kchat, m)
@@ -489,7 +488,7 @@ Contoh penggunaan: *${usedPrefix + command} buy potion 1*
                 default:
                     return conn.reply(m.chat, Kchat, m)
                 }
-            } 
+          }
         }catch (e) {
         conn.reply(m.chat, Kchat, m)
         console.log(e)
@@ -505,7 +504,7 @@ Contoh penggunaan: *${usedPrefix + command} buy potion 1*
 handler.help = ['shop <sell|buy> <args>', 'toko <sell|buy> <args>']
 handler.tags = ['rpg']
     
-handler.command = /^(shop|toko|buy|beli|sell|jual|upgrade)$/i
+handler.command = /^(shop|toko|buy|beli|sell|jual)$/i
 handler.register = true
 
 module.exports = handler

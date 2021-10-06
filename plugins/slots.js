@@ -34,7 +34,7 @@ contoh *${usedPrefix}${command} 999*`)
         let spins7 = (spin7 == 1 ? '🍊' : spin7 == 2 ? '🍇' : spin7 == 3 ? '🍉' : spin7 == 4 ? '🍌' : spin7 == 5 ? '🍍' : '')
         let spins8 = (spin8 == 1 ? '🍊' : spin8 == 2 ? '🍇' : spin8 == 3 ? '🍉' : spin8 == 4 ? '🍌' : spin8 == 5 ? '🍍' : '')
         let spins9 = (spin9 == 1 ? '🍊' : spin9 == 2 ? '🍇' : spin9 == 3 ? '🍉' : spin9 == 4 ? '🍌' : spin9 == 5 ? '🍍' : '' )
-        let user = global.DATABASE._data.users[m.sender]
+        let user = global.db.data.users[m.sender]
         user.money -= count * 1
         for (let i = 0; i < 3; i++) {
             m.reply(`
