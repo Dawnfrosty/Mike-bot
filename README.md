@@ -24,6 +24,9 @@ Heroku Buildpack
 | **FFMPEG** |[here](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
 | **IMAGEMAGICK** | [here](https://github.com/DuckyTeam/heroku-buildpack-imagemagick) |
 
+Tutorial YouTube
+
+[![YouTube](https://img.shields.io/badge/YouTube-Video-red)](https://youtu.be/DzNIL45qHaM)
 ## FOR TERMUX/UBUNTU/SSH USER
 
 ```bash
