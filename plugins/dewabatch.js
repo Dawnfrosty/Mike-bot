@@ -4,7 +4,7 @@ let fetch = require('node-fetch')
    let hasil = `Anime Nya Nih :) \n\n ${res.data.result}`
    conn.sendMessage(m.chat, hasil, m)
 }
-handler.help = ['loli']
+handler.help = ['dewabatch']
 handler.tags = ['anime']
 handler.command = /^dewabatch$/i
 handler.owner = false

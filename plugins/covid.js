@@ -9,12 +9,11 @@ Countries : ${text}
 Confirmed : ${json.confirmed.value}
 Recovered : ${json.recovered.value}
 Deaths : ${json.deaths.value}
-Last Update : ${json.lastUpdate}
-\n\n@Fatur`.trim())
+Last Update : ${json.lastUpdate}`.trim())
   else throw json
 }
 handler.help = ['covid'].map(v => v + ' <negara>')
-handler.tags = ['edukasi']
+handler.tags = ['edukasi', 'news']
 handler.command = /^(corona|covid|covid19)$/i
 //susu
 module.exports = handler

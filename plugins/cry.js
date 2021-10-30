@@ -4,8 +4,8 @@ const { MessageType } = require('@adiwajshing/baileys')
 
 let handler = async (m, { conn}) => {
   try {
-  let res = await fetch('https://tobz-api.herokuapp.com/api/cry?apikey=Tobzzz17')
-  let json = await res.json()
+  let res = await fetch('https://api.lolhuman.xyz/api/random/cry?apikey=Dawnfrostkey')
+  let json = await res.buffer()
   let { 
 result
 } = json
