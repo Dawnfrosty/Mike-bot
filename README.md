@@ -1,3 +1,5 @@
+# Branch ini hanya bisa untuk Windows dan heroku, termux ga bisa
+
 # Mike-bot
 Simple Rpg WhatsApp Bot Mike-bot
 
@@ -27,20 +29,7 @@ Heroku Buildpack
 Tutorial YouTube
 
 [![YouTube](https://img.shields.io/badge/YouTube-Video-red)](https://youtu.be/DzNIL45qHaM)
-## FOR TERMUX/UBUNTU/SSH USER
 
-```bash
-apt update && apt upgrade
-apt install git -y
-apt install nodejs -y
-apt install ffmpeg -y
-apt install imagemagick -y
-git clone https://github.com/Dawnfrosty/Mike-bot
-cd Mike-bot
-npm install
-npm update
-```
----------
 
 ## FOR WINDOWS/VPS/RDP USER
 
