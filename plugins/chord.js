@@ -1,30 +1,17 @@
-const axios = require('axios')
+let fetch = require('node-fetch')
 
 let handler = async(m, { conn, text, usedPrefix }) => {
 
     if (!text) return conn.reply(m.chat, 'Contoh penggunaan: ' + usedPrefix + 'chord hanya rindu', m)
     await m.reply(global.wait)
-    axios.get(`https://docs-jojo.herokuapp.com/api/chord?q=` + text)
-        .then((res) => {
-          let hasil = `*• Chord Lagu ${text} :*\n${res.data.result}`
+    let res = await fetch(`https://api.lolhuman.xyz/api/chord?apikey=Dawnfrostkey&query=${text}`)
+          let hasil = `*• Chord Lagu = ${res.result.title} :*\nDibuat = ${res.result.created}\nChord\n${res.result.chord}`
             conn.reply(m.chat, hasil, m)
-        })
-        .catch()
 }
 handler.help = ['chord <judul lagu>']
 handler.tags = ['edukasi']
 handler.command = /^(chord)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-handler.register = true
 
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
 handler.limit = true
 
 module.exports = handler

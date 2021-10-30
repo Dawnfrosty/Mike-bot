@@ -55,6 +55,8 @@ handler.all = async function (m, { isBlocked }) {
     // backup db
     if (setting.backup) {
         if (new Date() * 1 - setting.backupDB > 1000 * 60 * 60) {
+            let _uptime = process.uptime() * 1000
+            let uptime = clockString(_uptime)
             let d = new Date
             let date = d.toLocaleDateString('id', {
                 day: 'numeric',
@@ -62,7 +64,7 @@ handler.all = async function (m, { isBlocked }) {
                 year: 'numeric'
             })
             await global.db.write()
-            this.reply(global.owner[0] + '@s.whatsapp.net', `Database: ${date}`, null)
+            this.reply(global.owner[0] + '@s.whatsapp.net', `Database: ${date}\n${uptime}`, null)
             this.sendFile(global.owner[0] + '@s.whatsapp.net', fs.readFileSync('./database.json'), 'database.json', '', 0, 0, { mimetype: 'application/json' })
             setting.backupDB = new Date() * 1
         }
