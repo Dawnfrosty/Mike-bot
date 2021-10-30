@@ -11,18 +11,6 @@ let handler = async(m, { conn, text }) => {
 }
 handler.help = ['kisah|kisah nabi|nabi'].map(v => v + ' <nama nabi>')
 handler.tags = ['islam']
-handler.command = /^(kisah|kisah nabi|nabi)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
-handler.exp = 0
-handler.limit = false
+handler.command = /^(kisah|kisahnabi|nabi)$/i
 
 module.exports = handler

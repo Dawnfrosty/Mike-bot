@@ -16,7 +16,7 @@ let handler = async (m, { usedPrefix, command }) => {
     m.reply(json.resultadoOCR)
 }
 handler.help = ['ocr']
-handler.tags = ['tools']
+handler.tags = ['convert']
 handler.command = /^ocr$/i
 
 handler.limit = true
