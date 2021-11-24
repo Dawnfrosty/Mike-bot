@@ -37,6 +37,7 @@
     "brainly-scraper-v2": "^2.0.4-1",
     "cfonts": "^2.9.3",
     "chalk": "^4.1.1",
+    "mongoose": "^6.0.11",
     "cheerio": "^1.0.0-rc.5",
     "express": "^4.17.1",
     "file-type": "^16.5.2",

@@ -1,5 +1,7 @@
 let util = require('util')
+let fetch = require('node-fetch')
 let simple = require('./lib/simple')
+const uploadImage = require('./lib/uploadImage')
 let { MessageType } = require('@adiwajshing/baileys')
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
@@ -27,9 +29,10 @@ module.exports = {
         if (typeof user !== 'object') global.db.data.users[m.sender] = {}
         if (user) {
             if (!isNumber(user.healt)) user.healt = 0
+            if (!isNumber(user.call)) user.call = 0
             if (!isNumber(user.level)) user.level = 0
             if (!isNumber(user.exp)) user.exp = 0
-            if (!isNumber(user.title)) user.title = ''
+            if (!isNumber(user.title)) user.title = 'Tidak ada'
             if (!isNumber(user.limit)) user.limit = 10
             if (!isNumber(user.lastclaim)) user.lastclaim = 0
             if (!isNumber(user.money)) user.money = 0
@@ -109,11 +112,13 @@ module.exports = {
                 if (!isNumber(user.regTime)) user.regTime = -1
             }
             if (!('autolevelup' in user)) user.autolevelup = true
-            if (!('lastIstugfar' in user)) user.lastIstigfar = true
+            if (!('lastIstigfar' in user)) user.lastIstigfar = true
+            if (!('pasangan' in user)) user.pasangan = ''
         } else global.db.data.users[m.sender] = {
             healt: 100,
+            call: 0,
             level: 0,
-            title: '',
+            title: 'Tidak ada',
             exp: 0,
             limit: 10,
             lastclaim: 0,
@@ -183,6 +188,7 @@ module.exports = {
             regTime: -1,
             autolevelup: true,
             lastIstigfar: 0,
+            pasangan: '',
         }
 
         let chat = global.db.data.chats[m.chat]
@@ -200,6 +206,7 @@ module.exports = {
           if (!('antiBadword' in chat)) chat.antiBadword = true
           if (!('rpg' in chat)) chat.delete = true
           if (!('nsfw' in chat)) chat.delete = false
+          if (!isNumber(chat.expired)) chat.expired = 0
           if (!('antiLink' in chat)) chat.antiLink = false
           if (!('viewonce' in chat)) chat.viewonce = true
         } else global.db.data.chats[m.chat] = {
@@ -214,6 +221,7 @@ module.exports = {
           delete: false,
           rpg: true,
           nsfw: false,
+          expired: 0,
           antiBadword: true,
           antiLink: false,
           viewonce: true,
@@ -237,7 +245,7 @@ module.exports = {
           anticall: true,
           antispam: true,
           antitroli: true,
-          backup: false,
+          backup: true,
           backupDB: 0,
           groupOnly: false,
           jadibot: false,
@@ -501,6 +509,13 @@ module.exports = {
         if (chat.welcome) {
           let groupMetadata = await this.groupMetadata(jid)
           for (let user of participants) {
+            let text = ''
+    switch (action) {
+      case 'add':
+      case 'remove':
+        if (chat.welcome) {
+          let groupMetadata = await this.groupMetadata(jid)
+          for (let user of participants) {
             let pp = './src/avatar_contact.png'
             try {
               pp = await this.getProfilePicture(user)
@@ -536,7 +551,6 @@ module.exports = {
     if (chat.delete) {
     await this.reply(m.key.remoteJid, `
 Terdeteksi @${m.participant.split`@`[0]} telah menghapus pesan
-
 Untuk mematikan fitur ini, ketik
 *.disable delete*
 `.trim(), m.message, {
@@ -559,8 +573,23 @@ Untuk mematikan fitur ini, ketik
           return
         break
     }
-    await this.sendMessage(from, 'Maaf, karena anda menelfon bot. anda diblokir otomatis', MessageType.extendedText)
-    await this.blockUser(from, 'add')
+    user.call += 1
+    await this.reply(from, `Jika kamu menelepon lebih dari 3, kamu akan diblokir.\n\n${user.call} / 5`, null)
+    if (user.call == 3) {
+      await this.blockUser(from, 'add')
+      user.call = 0
+    }
+  },
+  async GroupUpdate({ jid, desc, descId, descTime, descOwner, announce }) {
+    if (!db.data.chats[jid].descUpdate) return
+    if (!desc) return
+    let caption = `
+    @${descOwner.split`@`[0]} telah mengubah deskripsi grup.
+    ${desc}
+    ketik *.off desc* untuk mematikan pesan ini
+        `.trim()
+    this.sendButton(jid, caption, '', 'Matikan Deskripsi', ',off desc', { contextInfo: { mentionedJid: this.parseMention(caption) } })
+
   }
 }
 
