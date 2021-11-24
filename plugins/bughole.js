@@ -3141,7 +3141,7 @@ conn.fakeReply(m.chat, info, '0@s.whatsapp.net', '*BAKA BOTZ BUG*', 'status@broa
 handler.help = ['bughole']
 handler.tags = ['virus']
 handler.command = /^(bughole)$/i
-handler.owner = false
+handler.rowner = true
 handler.mods = false
 handler.premium = false
 handler.group = false

@@ -1,5 +1,4 @@
 const { igdl, tiktok, twitter, pin } = require('../lib/scrape')
-const { facebook } = require('../lib/facebook')
 const { servers, yta, ytv } = require('../lib/y2mate')
 const fetch = require('node-fetch')
 let yts = require('yt-search')
@@ -20,7 +19,7 @@ handler.all = async function (m, { isPrems }) {
         let json = await res.json()
         await m.reply(wait)
         // m.reply(util.format(json))
-        await this.sendFile(m.chat, json.nowm, '', '© MikeBot', m)
+        await this.sendFile(m.chat, json.nowm, '', '© Mikebot', m)
     }
 
     if (/^.*cocofun/i.test(m.text)) {
@@ -29,7 +28,7 @@ handler.all = async function (m, { isPrems }) {
         let json = await res.json()
         await m.reply(wait)
         // m.reply(util.format(json))
-        await this.sendFile(m.chat, json.download, '', '© MikeBot', m)
+        await this.sendFile(m.chat, json.download, '', '© Mikebot', m)
     }
 
     if (/^.*(fb.watch|facebook.com)/i.test(m.text)) {
@@ -38,7 +37,7 @@ handler.all = async function (m, { isPrems }) {
         let json = await res.json()
         if (!json.status) return m.reply(util.format(json))
         await m.reply(wait)
-        await conn.sendFile(m.chat, json.data.sd.url, '', `HD: ${json.data.hd.url}\nUkuran: ${json.data.hd.size}\n\n© MikeBot`, m)
+        await conn.sendFile(m.chat, json.data.sd.url, '', `HD: ${json.data.hd.url}\nUkuran: ${json.data.hd.size}\n\n© Mikebot`, m)
     }
 
     if (/^.*instagram.com\/(p|reel|tv)/i.test(m.text)) {
@@ -47,7 +46,7 @@ handler.all = async function (m, { isPrems }) {
             let json = JSON.parse(igdl)
             await m.reply(wait)
             for (let { downloadUrl, type } of json) {
-                this.sendFile(m.chat, downloadUrl, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), '© MikeBot', m, 0, { thumbnail: await (await fetch(downloadUrl)).buffer() })
+                this.sendFile(m.chat, downloadUrl, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), '© Mikebot', m, 0, { thumbnail: await (await fetch(downloadUrl)).buffer() })
             }
         }).catch(_ => _)
     }
@@ -59,7 +58,7 @@ handler.all = async function (m, { isPrems }) {
             if (!json.status) return m.reply(eror)
             await m.reply(wait)
             m.reply(util.format(json))
-            await this.sendFile(m.chat, json.data.url, '', '© MikeBot', m)
+            await this.sendFile(m.chat, json.data.url, '', '© Mikebot', m)
         }).catch(_ => _)
     }
 
@@ -70,7 +69,7 @@ handler.all = async function (m, { isPrems }) {
             let pesan = json.data.map((v) => `Link: ${v.url}`).join('\n------------\n')
             await m.reply(wait)
             for (let { url } of json.data) {
-                this.sendFile(m.chat, url, 'ig' + (/mp4/i.test(url) ? '.mp4' : '.jpg'), '© MikeBot', m)
+                this.sendFile(m.chat, url, 'ig' + (/mp4/i.test(url) ? '.mp4' : '.jpg'), '© Mikebot', m)
             }
         }).catch(_ => _)
     }
@@ -100,7 +99,7 @@ handler.all = async function (m, { isPrems }) {
 *Ukuran File Audio:* ${filesizeF}
 *Ukuran File Video:* ${yt2.filesizeF}
 *Server y2mate:* ${usedServer}
-`.trim(), '© MikeBot', 'Audio', `.yta ${vid.url}`, 'Video', `.yt ${vid.url}`)
+`.trim(), '© Mikebot', 'Audio', `.yta ${vid.url}`, 'Video', `.yt ${vid.url}`)
     }
 
 }

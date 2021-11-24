@@ -16,7 +16,7 @@ Apakah Angkamu Dengan Bot Sama?
 
 +${bonus} XP!
 `.trim(), m)
-    global.DATABASE.data.users[m.sender].exp += bonus * 1
+    global.db.data.users[m.sender].exp += bonus * 1
         } else {
       conn.reply(m.chat, `Pilih Angka 0 sampai 9!`, m)
     }
@@ -25,7 +25,6 @@ handler.help = ['angka <0-9>']
 handler.tags = ['game']
 handler.command = /^angka/i
 
-handler.tigame = true
 handler.fail = null
 
 module.exports = handler

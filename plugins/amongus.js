@@ -11,7 +11,7 @@ ${text} sopan kami curiga
 
   await m.reply('Sedang membuat...')
 
-    let buff = ('http://lolhuman.herokuapp.com/api/amongus?apikey=31caf10e4a64e86c1a92bcba&text=' + text);
+    let buff = ('http://lolhuman.herokuapp.com/api/amongus?apikey=Dawnfrostkey&text=' + text);
     let voss = await fetch(buff)
     let vuss = await ftype.fromStream(voss.body)
     if (vuss !== undefined) {

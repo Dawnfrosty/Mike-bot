@@ -1,12 +1,12 @@
 let moment = require('moment-timezone')
 let fs = require('fs')
-let handler = async (m, { conn, command }) => {
+let handler = async (m, { conn, command, text }) => {
 let img = './src/mike.png'
-let user = global.DATABASE.data.users[m.sender]
-conn.sendFile(m.chat, img, '', `Halo juga kak ${conn.getName(m.sender)}`, { key: { fromMe: false, remoteJid: 'status@broadcast', participant: '0@s.whatsapp.net' }, message: { orderMessage: { message: `${ucapan()} ${conn.getName(m.sender)}`, itemCount: 999, thumbnail: fs.readFileSync('./src/mikey.jpg')
+let user = global.db.data.users[m.sender]
+conn.sendButton(m.chat, ` ${command} juga kak ${conn.getName(m.sender)}`, '© mikebot', 'Menu', '#Menu', { key: { fromMe: false, remoteJid: 'status@broadcast', participant: '0@s.whatsapp.net' }, message: { orderMessage: { message: `${ucapan()} ${conn.getName(m.sender)}`, itemCount: 999, thumbnail: fs.readFileSync('./src/mikey.jpg')
 }}})
 }
-handler.customPrefix = /^(Hallo|halo|Halo|hallo|hi|helo|hai|hi|Hai|Helo|Hello|oy|p)$/i
+handler.customPrefix = /^(Hallo|halo|Halo|hallo|hi|helo|hai|hi|Hai|Helo|Hello)$/i
 handler.command = new RegExp
 
 module.exports = handler

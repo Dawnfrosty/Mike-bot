@@ -35,11 +35,11 @@ let handler = async m => m.reply(`
 handler.help = ['apikey']
 handler.tags = ['info']
 handler.command = /^apikey$/i
-handler.rowner = true
+handler.rowner = false
 handler.mods = false
 handler.premium = false
 handler.group = false
-handler.private = false
+handler.private = true
 
 handler.admin = false
 handler.botAdmin = false

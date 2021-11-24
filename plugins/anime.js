@@ -21,20 +21,8 @@ let handler = async(m, { conn, args, usedPrefix }) => {
 
 }
 
-handler.help = ['anime <query>']
+handler.help = ['animepic <query>']
 handler.tags = ['anime']
-handler.command = /^(anime)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
-handler.exp = 0
-handler.limit = false
+handler.command = /^(animepic)$/i
 
 module.exports = handler
