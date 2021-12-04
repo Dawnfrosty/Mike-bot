@@ -28,7 +28,7 @@ handler.all = async function (m, { isBlocked }) {
 
     // ketika ada yang invite/kirim link grup di chat pribadi
     if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('https://chat') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) {
-        this.send2ButtonLoc(m.chat, await (await fetch(fla + 'sewa bot')).buffer(), `╠═〘 Beli Bot 〙 ═
+        this.send3ButtonLoc(m.chat, await (await fetch(fla + 'sewa bot')).buffer(), `╠═〘 Beli Bot 〙 ═
 ╠➥ *1 Bulan* :      *Rp 10000*
 ╠➥ *Permanen* : *Rp 15000*
 ╠➥ *Premium* :   *Rp 15000*
@@ -42,7 +42,7 @@ handler.all = async function (m, { isBlocked }) {
 ║
 ╠═ ©2021 Rpg wabot-aq
 ╠═ Scrip original by Nurutomo
-╠═〘 Mike BOT〙 ═`.trim(), '© mikebot', 'Dana', '#viadana', 'GoPay', '#viagopay', m)
+╠═〘 Mike BOT〙 ═`.trim(), '© mikebot', 'Dana', '#viadana', 'GoPay', '#viagopay', 'Pulsa Tsel', '#viapulsa', m)
 }
 
     // salam
@@ -54,7 +54,7 @@ handler.all = async function (m, { isBlocked }) {
 
     // backup db
     if (setting.backup) {
-        if (new Date() * 1 - setting.backupDB > 1000 * 60 * 60) {
+        if (new Date() * 1 - setting.backupDB > 1000 * 10 * 60) {
             let _uptime = process.uptime() * 1000
             let uptime = clockString(_uptime)
             let d = new Date
