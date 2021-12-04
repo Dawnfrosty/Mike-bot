@@ -2,6 +2,7 @@ let util = require('util')
 let fetch = require('node-fetch')
 let simple = require('./lib/simple')
 const uploadImage = require('./lib/uploadImage')
+const knights = require('knights-canvas')
 let { MessageType } = require('@adiwajshing/baileys')
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
@@ -509,21 +510,35 @@ module.exports = {
         if (chat.welcome) {
           let groupMetadata = await this.groupMetadata(jid)
           for (let user of participants) {
-            let text = ''
-    switch (action) {
-      case 'add':
-      case 'remove':
-        if (chat.welcome) {
-          let groupMetadata = await this.groupMetadata(jid)
-          for (let user of participants) {
-            let pp = './src/avatar_contact.png'
+            // let pp = './src/avatar_contact.png'
+            let pp = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60'
+            let ppgc = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60'
             try {
-              pp = await this.getProfilePicture(user)
+              pp = await uploadImage(await (await fetch(await this.getProfilePicture(user))).buffer())
+              ppgc = await uploadImage(await (await fetch(await this.getProfilePicture(jid))).buffer())
             } catch (e) {
             } finally {
-              text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', this.getName(jid)).replace('@desc', groupMetadata.desc) :
-                (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-              this.sendFile(jid, pp, 'pp.jpg', text, null, false, {
+              text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Selamat datang, @user!').replace('@subject', this.getName(jid)).replace('@desc', groupMetadata.desc ? String.fromCharCode(8206).repeat(4001) + groupMetadata.desc : '') :
+                (chat.sBye || this.bye || conn.bye || 'Sampai jumpa, @user!')).replace(/@user/g, '@' + user.split`@`[0])
+              let wel = await new knights.Welcome()
+                .setUsername(this.getName(user))
+                .setGuildName(this.getName(jid))
+                .setGuildIcon(ppgc)
+                .setMemberCount(groupMetadata.participants.length)
+                .setAvatar(pp)
+                .setBackground("https://i.ibb.co/KhtRxwZ/dark.png")
+                .toAttachment()
+
+              let lea = await new knights.Goodbye()
+                .setUsername(this.getName(user))
+                .setGuildName(this.getName(jid))
+                .setGuildIcon(ppgc)
+                .setMemberCount(groupMetadata.participants.length)
+                .setAvatar(pp)
+                .setBackground("https://i.ibb.co/KhtRxwZ/dark.png")
+                .toAttachment()
+
+              this.sendFile(jid, action === 'add' ? wel.toBuffer() : lea.toBuffer(), 'pp.jpg', text, null, false, {
                 contextInfo: {
                   mentionedJid: [user]
                 }
